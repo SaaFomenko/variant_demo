@@ -2,6 +2,7 @@
 #include <vector>
 #include <algorithm>
 #include <variant>
+#include <ctime>
 
 
 std::variant<int, std::string, std::vector<int>> get_variant() {
@@ -36,23 +37,24 @@ int main()
 
 	if (is_int)
 	{
-		std::cout << (var * 2) << std::endl;
+		std::cout << (std::get<int>(var) * 2) << std::endl;
 
 		return 0;
 	}
 
 	if (is_string)
 	{
-		std::cout << var << std::endl;
+		std::cout << std::get<std::string>(var) << std::endl;
 
 		return 0;
 	}
 
 	if (is_array)
 	{
+		std::vector<int> v = std::get<std::vector<int>>(var);
 		std::for_each(
-				var.begin(),
-				var.end(),
+				v.begin(),
+				v.end(),
 				[](int& i)
 				{
 					std::cout << i << ' ';
